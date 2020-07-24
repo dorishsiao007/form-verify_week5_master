@@ -3,54 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Login</title>
+    <title>Form Verify</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
     <div class="container mt-3" id="app">
-        <form @submit="sendForm">
-            <div class="form-group">
-                <validation-provider rules="required" v-slot="{ errors, classes }">
-                    <label for="name">收件人姓名</label>
-                    <input v-model="name" type="text" class="form-control" id="name">
-                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                </validation-provider>
-            </div>
-            <div class="form-group">
-                <validation-provider rules="email" v-slot="{ errors, classes }">
-                    <label for="mail">Email address</label>
-                    <input v-model="mail" type="email" :class="classes" class="form-control" id="mail" placeholder="name@example.com">
-                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                </validation-provider>
-            </div>
-            <div class="form-group">
-                <label for="phone">電話</label>
-                <input v-model="phone" type="tel" class="form-control" id="phone">
-            </div>
-            <div class="form-group">
-                <label for="adresse">地址</label>
-                <input v-model="addresse" type="tel" class="form-control" id="adresse">
-            </div>
-            <div class="form-group">
-                <label for="pay">付款方式</label>
-                <select v-model="pay" class="form-control" id="pay">
-                    <option>WebATM</option>
-                    <option>ATM</option>
-                    <option>Barcode</option>
-                    <option>Credit</option>
-                    <option>ApplePay</option>
-                    <option>GooglePay</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="message">留言</label>
-                <textarea v-model="message" class="form-control" id="message" rows="3"></textarea>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">送出表單</button>
-            </div>
-        </form>
+        <validation-observer v-slot="{ invalid }">
+            <form @submit.prevent="sendForm">
+                <div class="form-group">
+                    <validation-provider rules="required" v-slot="{ errors, classes }">
+                        <label for="name">收件人姓名</label>
+                        <input v-model="name" type="text" class="form-control" id="name">
+                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div class="form-group">
+                    <validation-provider rules="email|required" v-slot="{ errors, classes }">
+                        <label for="mail">Email address</label>
+                        <input v-model="mail" type="email" :class="classes" class="form-control" id="mail" placeholder="name@example.com">
+                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div class="form-group">
+                    <validation-provider rules="required|min:9" v-slot="{ errors, classes }">
+                        <label for="phone">電話</label>
+                        <input v-model="phone" type="tel" class="form-control" id="phone">
+                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div class="form-group">
+                    <validation-provider rules="required" v-slot="{ errors, classes }">
+                        <label for="adresse">地址</label>
+                        <input v-model="addresse" type="tel" class="form-control" id="adresse">
+                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div class="form-group">
+                    <validation-provider rules="required" v-slot="{ errors, classes }">
+                        <label for="pay">付款方式</label>
+                        <select v-model="pay" class="form-control" id="pay">
+                            <option>WebATM</option>
+                            <option>ATM</option>
+                            <option>Barcode</option>
+                            <option>Credit</option>
+                            <option>ApplePay</option>
+                            <option>GooglePay</option>
+                        </select>
+                        <span class="invalid-feedback">{{ errors[0] }}</span>
+                    </validation-provider>
+                </div>
+                <div class="form-group">
+                    <label for="message">留言</label>
+                    <textarea v-model="message" class="form-control" id="message" rows="3"></textarea>
+                </div>
+                <div>
+                    <button type="submit" :disabled="invalid" class="btn btn-primary">送出表單</button>
+                </div>
+            </form>
+        </validation-observer>
     </div>
     
     <!--  Bootstrap JS -->

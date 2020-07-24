@@ -3,6 +3,7 @@ import zh_TW from './zh_TW.js';
 
 // 註冊驗證套件
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 
 // Class 設定檔案
 VeeValidate.configure({
