@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <validation-provider rules="required" v-slot="{ errors, classes }">
                         <label for="name">收件人姓名</label>
-                        <input v-model="name" type="text" class="form-control" id="name">
+                        <input v-model="name" type="text" :class="classes" class="form-control" id="name">
                         <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                 </div>
@@ -28,21 +28,21 @@
                 <div class="form-group">
                     <validation-provider rules="required|min:9" v-slot="{ errors, classes }">
                         <label for="phone">電話</label>
-                        <input v-model="phone" type="tel" class="form-control" id="phone">
+                        <input v-model="phone" type="tel" :class="classes" class="form-control" id="phone">
                         <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                 </div>
                 <div class="form-group">
                     <validation-provider rules="required" v-slot="{ errors, classes }">
                         <label for="adresse">地址</label>
-                        <input v-model="addresse" type="tel" class="form-control" id="adresse">
+                        <input v-model="addresse" type="tel" :class="classes" class="form-control" id="adresse">
                         <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                 </div>
                 <div class="form-group">
                     <validation-provider rules="required" v-slot="{ errors, classes }">
                         <label for="pay">付款方式</label>
-                        <select v-model="pay" class="form-control" id="pay">
+                        <select v-model="pay" class="form-control" :class="classes" id="pay">
                             <option>WebATM</option>
                             <option>ATM</option>
                             <option>Barcode</option>
